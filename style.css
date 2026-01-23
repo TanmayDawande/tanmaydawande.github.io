@@ -1,0 +1,336 @@
+:root {
+    --bg-color: #0c0c0c;
+    --terminal-green: #33ff00;
+    --terminal-glow: #33ff0080;
+    --text-color: #e0e0e0;
+    --prompt-color: #ff3333;
+    --link-color: #55b5db;
+    --font-stack: 'Fira Code', 'Courier New', monospace;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-stack);
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.scanline {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,0),
+        rgba(255,255,255,0) 50%,
+        rgba(0,0,0,0.2) 50%,
+        rgba(0,0,0,0.2)
+    );
+    background-size: 100% 4px;
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.6;
+}
+
+#terminal-container {
+    width: 100%;
+    height: 100vh;
+    overflow-y: auto; 
+    background: transparent;
+    border: none;
+    padding: 20px;
+    box-sizing: border-box;
+    display: block;
+}
+
+#terminal-output {
+    overflow: visible;
+    padding-bottom: 0;
+}
+
+#terminal-output::-webkit-scrollbar {
+    width: 8px;
+}
+
+#terminal-output::-webkit-scrollbar-thumb {
+    background-color: #333;
+    border-radius: 4px;
+}
+
+.line {
+    margin-bottom: 5px;
+    line-height: 1.6;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    text-shadow: 0 0 2px rgba(255, 255, 255, 0.2);
+}
+
+.command-echo {
+    color: #888;
+}
+
+.success { color: var(--terminal-green); }
+.error { color: #ff5555; }
+.info { color: #55b5db; }
+
+.input-line {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+}
+
+.prompt {
+    color: var(--terminal-green);
+    margin-right: 10px;
+    font-weight: bold;
+    text-shadow: 0 0 5px var(--terminal-glow);
+    white-space: nowrap;
+}
+
+#command-input {
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: default;
+}
+
+#input-display {
+    color: var(--text-color);
+    white-space: pre;
+    min-width: 1px;
+}
+
+.cursor {
+    width: 10px;
+    height: 1.2em;
+    background: var(--terminal-green);
+    display: inline-block;
+    animation: blink 1s step-end infinite;
+    pointer-events: none;
+}
+
+#menu-icon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 30px;
+    height: 25px;
+    cursor: pointer;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#menu-icon .bar {
+    width: 100%;
+    height: 4px;
+    background-color: var(--terminal-green);
+    box-shadow: 0 0 5px var(--terminal-green);
+    transition: 0.3s;
+}
+
+#menu-icon:hover .bar {
+    background-color: #fff;
+}
+
+#projects-modal {
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    width: 400px;
+    max-height: 70vh;
+    background-color: rgba(10, 10, 10, 0.95);
+    border: 1px solid var(--terminal-green);
+    box-shadow: 0 0 15px rgba(51, 255, 0, 0.2);
+    z-index: 99;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    backdrop-filter: blur(5px);
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+#projects-modal.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-20px);
+}
+
+.modal-header {
+    background: rgba(51, 255, 0, 0.1);
+    padding: 10px;
+    border-bottom: 1px solid var(--terminal-green);
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    color: var(--terminal-green);
+}
+
+.close-btn {
+    cursor: pointer;
+}
+.close-btn:hover {
+    color: #fff;
+}
+
+#github-projects::-webkit-scrollbar {
+    width: 6px;
+}
+#github-projects::-webkit-scrollbar-thumb {
+    background: var(--terminal-green);
+}
+
+.modal-tabs {
+    display: flex;
+    border-bottom: 1px solid #333;
+    background: rgba(0,0,0,0.5);
+}
+
+.tab {
+    flex: 1;
+    text-align: center;
+    padding: 8px 0;
+    cursor: pointer;
+    color: #666;
+    transition: 0.2s;
+    font-size: 0.9em;
+}
+
+.tab:hover {
+    color: #fff;
+    background: rgba(255,255,255,0.05);
+}
+
+.tab.active {
+    color: var(--terminal-green);
+    border-bottom: 2px solid var(--terminal-green);
+    background: rgba(51, 255, 0, 0.05);
+}
+
+#modal-content {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+#github-projects, #contact-section {
+    overflow-y: auto;
+    padding: 15px;
+    height: 100%;
+}
+#contact-section.hidden {
+    display: none;
+}
+#github-projects.hidden {
+    display: none;
+}
+
+#github-projects::-webkit-scrollbar,
+#contact-section::-webkit-scrollbar {
+    width: 6px;
+}
+#github-projects::-webkit-scrollbar-thumb,
+#contact-section::-webkit-scrollbar-thumb {
+    background: var(--terminal-green);
+}
+
+.contact-item {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.contact-item:hover {
+    border-color: var(--terminal-green);
+    background: rgba(51, 255, 0, 0.05);
+}
+.contact-label {
+    color: var(--terminal-green);
+    margin-right: 10px;
+}
+
+.repo-item {
+    border: 1px solid #333;
+    padding: 10px;
+    margin-bottom: 10px;
+    transition: 0.2s;
+    cursor: pointer;
+}
+.repo-item:hover {
+    border-color: var(--terminal-green);
+    background: rgba(51, 255, 0, 0.05);
+}
+.repo-name {
+    color: var(--link-color);
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+.repo-desc {
+    font-size: 0.85em;
+    color: #aaa;
+    margin-bottom: 8px;
+}
+.repo-meta {
+    font-size: 0.75em;
+    color: #666;
+    display: flex;
+    gap: 10px;
+}
+.loading {
+    text-align: center;
+    color: var(--terminal-green);
+    animation: blink 0.5s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+#donut-bg {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    color: #e6e6e6;
+    font-size: 14px;
+    white-space: pre;
+    font-family: monospace;
+    opacity: 0.18;
+    pointer-events: none;
+    filter: blur(2.5px);
+}
+
+.project-card {
+    border: 1px dashed #444;
+    padding: 15px;
+    margin: 10px 0;
+    max-width: 600px;
+}
+.project-title { color: var(--terminal-green); font-weight: bold; font-size: 1.1em; }
+.project-tech { color: #888; font-size: 0.9em; margin-bottom: 5px; }
+.project-desc { margin-bottom: 10px; }
+.project-links a { color: var(--link-color); text-decoration: none; margin-right: 10px; }
+.project-links a:hover { text-decoration: underline; color: #fff; }
+
+a { color: var(--link-color); text-decoration: none; }
+a:hover { text-decoration: underline; }
