@@ -196,16 +196,25 @@ window.onload = async () => {
         terminalOutput.innerHTML = ""; 
         
         const header = [
-            "________________    _______      _____      _____ _____.___.  ",
-            "\\__    ___/  _  \\   \\      \\    /     \\    /  _  \\\\__  |   |",
-            "  |    | /  /_\\  \\  /   |   \\  /  \\ /  \\  /  /_\\  \\/   |   |",
-            "  |    |/    |    \\/    |    \\/    Y    \\/    |    \\____   |",
-            "  |____|\\____|__  /\\____|__  /\\____|__  /\\____|__  / ______|",
-            "                \\/         \\/         \\/         \\/\\/       "
+            "████████╗ █████╗ ███╗   ██╗███╗   ███╗ █████╗ ██╗   ██╗",
+            "╚══██╔══╝██╔══██╗████╗  ██║████╗ ████║██╔══██╗╚██╗ ██╔╝",
+            "   ██║   ███████║██╔██╗ ██║██╔████╔██║███████║ ╚████╔╝ ",
+            "   ██║   ██╔══██║██║╚██╗██║██║╚██╔╝██║██╔══██║  ╚██╔╝  ",
+            "   ██║   ██║  ██║██║ ╚████║██║ ╚═╝ ██║██║  ██║   ██║   ",
+            "   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝     ╚═╝╚═╝  ╚═╝   ╚═╝   "
         ];
         
-        header.forEach(line => println(line, "info"));
-        println("\nWelcome to Tanmay Dawande's Portfolio", "success");
+        const headerPre = document.createElement("pre");
+        headerPre.style.fontSize = "10px";
+        headerPre.style.lineHeight = "1.1";
+        headerPre.style.margin = "0 0 20px 0";
+        headerPre.style.fontFamily = "monospace";
+        headerPre.style.whiteSpace = "pre";
+        headerPre.className = "info";
+        headerPre.textContent = header.join("\n");
+        terminalOutput.appendChild(headerPre);
+
+        println("Welcome to Tanmay Dawande's Portfolio", "success");
         println("Type 'help' to view all available commands.\n", "");
         saveHistory();
 
@@ -255,8 +264,8 @@ function displayHelp() {
 function displayAbout() {
     println("----------------------------------------", "command-echo");
     println("USER: Tanmay Dawande", "info");
-    println("TASK: Explore new things", "info");
-    println("LOCATION: ", "info");
+    println("STUDY: Vellore Institute of Technology, Vellore", "info");
+    println("BRANCH: CSE CORE", "info");
     println("");
     typeLine("");
     println("----------------------------------------", "command-echo");
