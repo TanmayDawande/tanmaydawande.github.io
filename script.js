@@ -294,7 +294,8 @@ function displaySocials() {
     const socials = [
         { name: "GitHub", url: "https://github.com/TanmayDawande" },
         { name: "LinkedIn", url: "https://www.linkedin.com/in/tanmay-dawande-601378376/" }, 
-        { name: "Email", url: "mailto:contact@tanmay.tech" }
+        { name: "X", url: "https://x.com/tanme_7" },
+        { name: "Email", url: "mailto:tdawande007@gmail.com" }
     ];
     
     println("CONNECT:", "info");
