@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Not Found</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #0d0d0d;
+            color: #00ff00;
+            font-family: 'Fira Code', monospace;
+            text-align: center;
+        }
+        h1 {
+            font-size: 5rem;
+            margin-bottom: 0;
+            text-shadow: 0 0 10px #00ff00;
+        }
+        p {
+            font-size: 1.5rem;
+            margin-top: 10px;
+        }
+        .back-link {
+            margin-top: 30px;
+            padding: 10px 20px;
+            border: 1px solid #00ff00;
+            color: #00ff00;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .back-link:hover {
+            background-color: #00ff00;
+            color: #000;
+            box-shadow: 0 0 20px #00ff00;
+        }
+    </style>
+</head>
+<body>
+    <div class="scanline"></div>
+    <h1>404</h1>
+    <p>> PAGE_NOT_FOUND</p>
+    <p>The requested URL was not found on this server.</p>
+    <a href="/" class="back-link">Return to Home</a>
+</body>
+</html>
