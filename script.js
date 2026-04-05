@@ -28,6 +28,15 @@ const commands = {
             println("Opening GitHub profile...", "info");
             window.open("https://github.com/TanmayDawande", "_blank");
         }
+    },
+    portfolio: {
+        desc: "View my GUI portfolio in high definition",
+        execute: () => {
+            println("Loading portfolio.html...", "success");
+            setTimeout(() => {
+                window.location.href = "portfolio.html";
+            }, 1000);
+        }
     }
 };
 

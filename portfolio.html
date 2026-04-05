@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tanmay Dawande | Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="portfolio.css">
+</head>
+<body>
+    <div class="stars-bg" id="stars-bg"></div>
+    <div class="background-overlay"></div>
+    
+    <nav>
+        <div class="nav-content">
+            <div class="logo">TANMAY.TECH</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Terminal</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#achievements">Achievements</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <h1 class="glitch" data-text="TANMAY DAWANDE">TANMAY DAWANDE</h1>
+            <p class="subtitle">CSE Core Underground @ VIT | First Year Student</p>
+            <p class="location">Based in Pune, India</p>
+        </div>
+    </header>
+
+    <main>
+        <section id="about" class="section">
+            <h2 class="section-title text-accent">_ABOUT_ME</h2>
+            <div class="section-content">
+                <p>I am a first-year Computer Science Core student at <strong>Vellore Institute of Technology (VIT)</strong>. My journey is a blend of technology, music, and sports. Based in Pune, I am constantly exploring new frontiers in software development while maintaining a deep connection with classical arts and competitive athletics.</p>
+                <p>Currently, I'm focusing my academic pursuits on mastering the fundamentals of a CSE Core curriculum—diving deep into programming logic, data structures, and the mathematical foundations of computing. Outside the classroom, you'll find me at the intersection of creativity and discipline, whether that's at the piano bench or on the football pitch.</p>
+                
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h3>Languages</h3>
+                        <p>C | C++ | Python | Java</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="achievements" class="section">
+            <h2 class="section-title text-accent">_ACHIEVEMENTS</h2>
+            <div class="grid">
+                <div class="card">
+                    <div class="card-icon"></div>
+                    <h3>Piano Maestro</h3>
+                    <p>Technically proficient in Indian Classical Piano, having successfully completed <strong>5 formal exams</strong>. My repertoire spans the emotional depth of the Romantic era to the structured brilliance of the Classical period.</p>
+                    <div class="card-image">
+                        <img src="piano.jpeg" alt="Roland RP-501r" class="portfolio-img">
+                    </div>
+                    <ul class="achievement-list">
+                        <li>Mastered <strong>Moonlight Sonata (1st & 3rd Mvt)</strong> - Beethoven</li>
+                        <li>Performed <strong>Fantasie Impromptu</strong> - Chopin</li>
+                        <li>5 levels of certifications in Indian Classical Framework</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-icon"></div>
+                    <h3>Cybersecurity Specialist</h3>
+                    <p>Successfully completed <strong>Network Ethical Hacking</strong> by Zaid Sabih, acquiring hands-on expertise in offensive security and network penetration testing.</p>
+                    <div class="card-links">
+                        <a href="https://www.udemy.com/course/learn-ethical-hacking-from-scratch/" target="_blank" class="btn">View Course</a>
+                    </div>
+                    <ul class="achievement-list">
+                        <li>Executing MITM (Man-in-the-Middle) attacks and ARP spoofing</li>
+                        <li>Exploiting network vulnerabilities and gaining full control over target systems</li>
+                        <li>Wireless security auditing and WEP/WPA/WPA2 cracking</li>
+                        <li>Server-side and client-side exploitation techniques</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-icon"></div>
+                    <h3>Virtual Assistant</h3>
+                    <p>Developed a custom <strong>Virtual Assistant</strong> during the <strong>8th standard</strong>, which served as my introduction to automation and software interaction.</p>
+                    <ul class="achievement-list">
+                        <li>Voice-activated command processing</li>
+                        <li>Automated daily tasks and system interactions</li>
+                        <li>Early foundation in programming logic and UX</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-icon"></div>
+                    <h3>ML Hackathon | Mumbai</h3>
+                    <p>Participated in a regional <strong>Machine Learning Hackathon</strong> in Mumbai during the <strong>10th standard</strong>, where I successfully built and trained an AI model.</p>
+                    <ul class="achievement-list">
+                        <li>Trained a reinforcement learning model to play Tick-Tac-Toe</li>
+                        <li>Implemented game logic and strategic decision-making algorithms</li>
+                        <li>Explored neural network fundamentals at an early age</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-icon"></div>
+                    <h3>Football Excellence</h3>
+                    <p>Recognized as the <strong>Best Player</strong> in a competitive regional match, demonstrating teamwork, strategic thinking, and high-intensity performance under pressure.</p>
+                    <div class="card-image">
+                        <img src="me.jpeg" alt="Tanmay Football Match" class="portfolio-img">
+                    </div>
+                    <ul class="achievement-list">
+                        <li>Playmaker role with focus on tactical awareness</li>
+                        <li>Consistent performance in inter-college and local tournament play</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="section">
+            <h2 class="section-title text-accent">_PROJECTS</h2>
+            <div class="grid" id="project-list">
+                <!-- Projects will be fetched dynamically via JavaScript -->
+                <div class="loading-text">Fetching dynamic data from GitHub...</div>
+            </div>
+        </section>
+
+        <section id="contact" class="section">
+            <h2 class="section-title text-accent">_CONNECT</h2>
+            <div class="contact-grid">
+                <a href="mailto:tdawande007@gmail.com" class="contact-link">Email</a>
+                <a href="https://github.com/TanmayDawande" target="_blank" class="contact-link">GitHub</a>
+                <a href="https://www.linkedin.com/in/tanmay-dawande-601378376/" target="_blank" class="contact-link">LinkedIn</a>
+                <a href="https://x.com/tanme_7" target="_blank" class="contact-link">X (Twitter)</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Tanmay Dawande.</p>
+    </footer>
+
+    <script>
+        function createStars() {
+            const bg = document.getElementById('stars-bg');
+            const count = 150;
+            for (let i = 0; i < count; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                const size = Math.random() * 2 + 1;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.setProperty('--duration', `${Math.random() * 3 + 2}s`);
+                bg.appendChild(star);
+            }
+        }
+
+        function createShootingStar() {
+            const bg = document.getElementById('stars-bg');
+            const star = document.createElement('div');
+            star.className = 'shooting-star';
+            
+            const startX = Math.random() * 100;
+            const startY = Math.random() * 50;
+            star.style.left = `${startX}%`;
+            star.style.top = `${startY}%`;
+            star.style.transform = `rotate(${Math.random() * 45 + 135}deg)`;
+            
+            bg.appendChild(star);
+            
+            setTimeout(() => {
+                star.remove();
+            }, 3000);
+            
+            // Random interval between 4 to 10 seconds
+            setTimeout(createShootingStar, Math.random() * 6000 + 4000);
+        }
+
+        createStars();
+        createShootingStar();
+
+        async function fetchGithubProjects() {
+            const projectList = document.getElementById('project-list');
+            try {
+                const response = await fetch('https://api.github.com/users/TanmayDawande/repos?sort=updated');
+                const repos = await response.json();
+                
+                projectList.innerHTML = '';
+                
+                const excluded = ['TanmayDawande', 'tanmaydawande.github.io'];
+                
+                const descriptions = {
+                    "AiRecipeGenerator": "An AI-powered assistant built with Streamlit and Gemini API that generates healthy recipes based on user ingredients.",
+                    "J.A.R.V.I.S": "A Python voice assistant designed to automate desktop tasks using speech recognition and predefined commands.",
+                    "Vitian-auto-signin": "VTOP portal automation using Google Gemini AI for CAPTCHA recognition and PyAutoGUI for login orchestration.",
+                    "PythonPaint": "A feature-rich desktop drawing application built with PyQt5, offering custom brushes and color palettes.",
+                    "PhNoTracker": "A tracking utility that uses phonenumbers and geopy to extract geographical insights and provider data.",
+                    "IPTracker": "Web automation leveraging Selenium and Chrome WebDriver to fetch real-time geolocation data from IP addresses.",
+                    "HandTracker": "Real-time computer vision project using OpenCV and MediaPipe to detect and track hand landmarks.",
+                    "MLTicTacToe": "Tic-Tac-Toe variant using Pygame and a custom-trained machine learning model to execute optimal moves.",
+                    "quizgenai": "AI-powered quiz generator from PDFs, PPTs or site links."
+                };
+                
+                repos.forEach(repo => {
+                    if (repo.fork || excluded.includes(repo.name)) return;
+                    
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    
+                    const desc = descriptions[repo.name] || repo.description || 'A unique technical project focused on problem-solving and innovation.';
+                    
+                    let demoLink = repo.homepage;
+                    if (repo.name === 'quizgenai') {
+                        demoLink = 'https://tanmaydawande.tech/quizgenai';
+                    }
+
+                    card.innerHTML = `
+                        <div class="card-icon"></div>
+                        <h3>${repo.name.replace(/-/g, ' ')}</h3>
+                        <p>${desc}</p>
+                        <div class="card-links">
+                            <a href="${repo.html_url}" target="_blank" class="btn">View Repo</a>
+                            ${demoLink ? `<a href="${demoLink}" target="_blank" class="btn">Demo</a>` : ''}
+                        </div>
+                    `;
+                    projectList.appendChild(card);
+                });
+            } catch (error) {
+                projectList.innerHTML = '<div class="error-text">Failed to fetch projects. Please visit GitHub manually.</div>';
+            }
+        }
+
+        fetchGithubProjects();
+    </script>
+</body>
+</html>
