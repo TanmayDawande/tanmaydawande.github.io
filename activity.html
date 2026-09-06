@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Recent public GitHub activity by Tanmay Dawande." />
+    <title>Activity - Tanmay Dawande</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav container" aria-label="Main navigation">
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="activity.html" aria-current="page">Activity</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main class="container page-main">
+      <section class="section activity-page">
+        <div class="section-heading"><span>02</span><h1><b>$</b> github activity</h1><hr /></div>
+        <div class="activity-toolbar">
+          <p id="activity-status" class="meta">fetching public events...</p>
+          <button id="refresh-activity" class="refresh-button" type="button" title="Fetch latest GitHub activity">↻ refresh</button>
+        </div>
+        <div id="activity-list" class="activity-list" aria-live="polite"></div>
+      </section>
+    </main>
+    <footer class="container site-footer">
+      <span>© <span id="year"></span> Tanmay Dawande</span>
+    </footer>
+    <script src="js/script.js"></script>
+    <script src="js/github-activity.js"></script>
+  </body>
+</html>

@@ -1,76 +1,71 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tanme portfolio</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-</head>
-<meta name="description" content="tanmay resides here">
-<body>
-    <div class="scanline"></div>
-    <div id="donut-bg"></div>
-    <div id="terminal-container">
-        <!-- Menu Icon -->
-        <div id="menu-icon">
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-        </div>
-        
-        <!-- Projects Modal/Tab -->
-        <div id="projects-modal" class="hidden">
-            <div class="modal-header">
-                <span></span>
-                <span class="close-btn">[X]</span>
-            </div>
-            <div class="modal-tabs">
-                <span id="tab-projects" class="tab active">[PROJECTS]</span>
-                <span id="tab-contact" class="tab">[CONTACT]</span>
-            </div>
-            <div id="modal-content">
-                <div id="github-projects">
-                    <!-- Projects will be loaded here -->
-                    <div class="loading">FETCHING DATA...</div>
-                </div>
-                <div id="contact-section" class="hidden">
-                    <div class="contact-item">
-                        <span class="contact-label">Email:</span>
-                        <span style="color: var(--link-color); cursor: text;">tdawande007@gmail.com</span>
-                    </div>
-                    <div class="contact-item">
-                        <span class="contact-label">GitHub:</span>
-                        <a href="https://github.com/TanmayDawande" target="_blank">TanmayDawande</a>
-                    </div>
-                    <div class="contact-item">
-                        <span class="contact-label">LinkedIn:</span>
-                        <a href="https://www.linkedin.com/in/tanmay-dawande-601378376/" target="_blank">Tanmay Dawande</a>
-                    </div>
-                    <div class="contact-item">
-                        <span class="contact-label">X:</span>
-                        <a href="https://x.com/tanme_7" target="_blank">@tanme_7</a>
-                    </div>
-                    <div class="contact-item">
-                        <span class="contact-label">Discord:</span>
-                        <span style="color: var(--link-color); cursor: text;">.tanme</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Portfolio of Tanmay Dawande: AI apps, automation tools, and computer-vision experiments." />
+    <title>Tanmay Dawande - Developer & Projects</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav container" aria-label="Main navigation">
+        <ul class="nav-links">
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="activity.html">Activity</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
 
-        <div id="terminal-output"></div>
-        <div class="input-line">
-            <span class="prompt">visitor@tanmay:~$</span>
-            <!-- Hidden input for typing -->
-            <input type="text" id="command-input" autocomplete="off" spellcheck="false" autofocus>
-            <!-- Visual representation -->
-            <span id="input-display"></span>
-            <span class="cursor"></span>
+    <main class="container">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="terminal-label reveal"><span>$</span> whoami</div>
+        <div class="ascii-row reveal">
+          <pre id="hero-title" aria-label="Tanmay Dawande">   ░██
+   ░██
+░████████  ░██████   ░████████  ░█████████████   ░███████
+   ░██          ░██  ░██    ░██ ░██   ░██   ░██ ░██    ░██
+   ░██     ░███████  ░██    ░██ ░██   ░██   ░██ ░█████████
+   ░██    ░██   ░██  ░██    ░██ ░██   ░██   ░██ ░██
+    ░████  ░█████░██ ░██    ░██ ░██   ░██   ░██  ░███████</pre>
         </div>
-    </div>
-    <script src="script.js"></script>
-</body>
+        <p class="eyebrow reveal">// developer · builds things, breaks a few, ships the rest</p>
+        <p class="intro reveal">Hey, Tanmay this side! <br>
+          Im a 2nd year undergrad at VIT Vellore studying CSE.<br>
+          
+        </p>
+        <div class="hero-actions reveal">
+          <a class="button" href="projects.html"><span>$</span> ls ./projects</a>
+          <a class="text-link" href="#contact">say hi →</a>
+        </div>
+      </section>
+
+      <section id="projects" class="section project-preview">
+        <div class="section-heading"><span>01</span><h2><b>$</b> projects</h2><hr /></div>
+        <p class="section-intro"></p>
+        <div id="project-grid" class="project-rail project-preview-rail" data-limit="4" aria-live="polite"></div>
+        <a class="text-link remote-link" href="projects.html"><span>$</span> view more projects →</a>
+      </section>
+
+      <section id="contact" class="section">
+        <div class="section-heading"><span>02</span><h2><b>$</b> cat contact.txt</h2><hr /></div>
+        <p class="section-intro">connect with me</p>
+        <ul class="contact-list">
+          <li><span>Email</span><a href="mailto:tdawande007@gmail.com">tdawande007@gmail.com</a></li>
+          <li><span>GitHub</span><a href="https://github.com/TanmayDawande" target="_blank" rel="noopener noreferrer">TanmayDawande</a></li>
+          <li><span>LinkedIn</span><a href="https://www.linkedin.com/in/tanmay-dawande-601378376/" target="_blank" rel="noopener noreferrer">Tanmay Dawande</a></li>
+          <li><span>X</span><a href="https://x.com/tanme_7" target="_blank" rel="noopener noreferrer">@tanme_7</a></li>
+          <li><span>Discord</span><span>.tanme</span></li>
+          <li><span>CF</span><a href="https://codeforces.com/profile/Tanme7" target="_blank" rel="noopener noreferrer">Tanme7</a></li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="container site-footer">
+      <span>© <span id="year"></span> Tanmay Dawande · Based in Pune, Maharashtra</span>
+    </footer>
+    <script src="js/script.js"></script>
+  </body>
 </html>
