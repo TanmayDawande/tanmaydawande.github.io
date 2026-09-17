@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="A CLI client-server chat with length-prefixed packet framing and hybrid encryption - RSA implemented from raw math, used to bootstrap a 256-bit AES-GCM session." />
+    <meta property="og:title" content="babel - Tanmay Dawande" />
+    <meta property="og:description" content="A CLI client-server chat with length-prefixed packet framing and hybrid encryption - RSA implemented from raw math, used to bootstrap a 256-bit AES-GCM session." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://tanmaydawande.tech/blog/2026-09-18-babel-tcp.html" />
+    <meta name="twitter:card" content="summary" />
+    <title>babel - Tanmay Dawande</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+    <link rel="stylesheet" href="../css/code.css" />
+    <link rel="alternate" type="application/rss+xml" title="Tanmay Dawande - Blog" href="../feed.xml" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav container" aria-label="Main navigation">
+        <ul class="nav-links">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../projects.html">Projects</a></li>
+          <li><a href="../activity.html">Activity</a></li>
+          <li><a href="../blog.html" aria-current="page">Blog</a></li>
+          <li><a href="../index.html#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main class="container page-main post-page">
+      <article class="section">
+        <a class="text-link" href="../blog.html">← back to blog</a>
+        <div class="post-header">
+          <p class="post-meta">18 Sep 2026 · 4 min read</p>
+          <h1 class="post-title">babel</h1>
+          <div class="post-tags"><span class="post-tag">python</span><span class="post-tag">cryptography</span><span class="post-tag">rsa</span><span class="post-tag">aes-gcm</span></div>
+        </div>
+        <div class="prose">
+          <h2 id="1-architecture">1) Architecture</h2>
+<div class="codehilite"><pre><span></span><code>A-----------------B
+        |
+        |
+        C
+</code></pre></div>
+
+<p>A wants to securely receive messages from B. C wants to intercept them. A generates a public and a private key. It sends the public key to B. B and C receive the public key. B uses A&rsquo;s public key to ENCRYPT the message. C cannot read it. A receives the message and uses A&rsquo;s private key to DECRYPT it.</p>
+<h2 id="2-rsa-encryption-mathematics">2) RSA Encryption Mathematics</h2>
+<p>Two distinct massive prime numbers P and Q are generated (using <code>pycryptodome</code>&rsquo;s Miller-Rabin primality test) and multiplied to generate N. N is the clock size or the modulus.</p>
+<p>The public key is the pair of two numbers (N, e).</p>
+<p>Euler&rsquo;s Totient function is defined as:</p>
+<p><code>ϕ(N) = (P-1)*(Q-1)</code>. This function calculates the amount of numbers coprime with N.</p>
+<p>To pick the public exponent &lsquo;e&rsquo;, it must meet these two criteria:</p>
+<ul>
+<li><code>1 &lt; e &lt; ϕ(N)</code></li>
+<li>e must be coprime with <code>ϕ(N)</code></li>
+</ul>
+<p>To mathematically choose the private key &lsquo;d&rsquo;, we use the Extended Euclidean Algorithm to ensure that:</p>
+<ul>
+<li><code>(d*e) mod(ϕ(N)) == 1</code></li>
+</ul>
+<p>The encryption formula is: <code>C = (M^e) mod N</code>
+The decryption formula is: <code>M = (C^d) mod N</code></p>
+<h2 id="3-application-layer-protocol-framing">3) Application Layer Protocol (Framing)</h2>
+<p>Added a 4-byte header to the start of each packet that denotes the length of the entire payload and dynamically tells the <code>socket.recv()</code> function exactly how many BYTES to fetch, preventing TCP buffer overflow/underflow.</p>
+<p>This is achieved by using the built-in <code>struct</code> library in Python that packs the length of the message into a 32-bit network-byte-order integer (<code>!I</code>). The receiver first reads the 4-byte header, unpacks it to get the integer length, and then dynamically receives the exact remainder of the packet.</p>
+<hr />
+<p>added the two way rsa encryption. Earlier, only client messages we encrypted but now the client also has its messages encrypted. Made a new <code>crypto_engine</code> that handles the separate logic of encrypting and decrypting</p>
+<p>logic steps involved -</p>
+<ol>
+<li>The server generates its own keys and sends them to the client</li>
+<li>The client recieves these keys and stores them and generates its own keys to send them to the server</li>
+<li>The server recieves these keys and sends an ACK</li>
+<li>The ack is recieved and the chat begins</li>
+<li>The client messages are encryoted by the servers keys and sent</li>
+<li>The server recieves them and decrypts using its own keys.</li>
+</ol>
+<p><strong>PROBLEM OCCOURED</strong> -</p>
+<p>currently, babel uses pure RSA modular exponentiation to to encrypt chat payloads. Because of the mathematical rules of RSA (M^e mod N), the Integer representation of the Message (M) must be strictly smaller than the Modulus (N).</p>
+<ul>
+<li>generated primes, p and q are 1024 bit</li>
+<li>mod n is 2048 bit</li>
+<li>2048 bits / 8 bits = 256 bytes</li>
+</ul>
+<p><strong>BUG</strong> - if a message more than 256 bit is sent, an overflow error is caused due to wrap-around logic of modulus operation</p>
+<p><strong>FIX</strong> - babel will use a hybrid cryptography model in the futire commits. RSA will only be used duing handshake and after that once a session is established, the actual chat stream will be encrypted using AES-GCM, which has no payload limit.</p>
+<hr />
+<h2 id="aes-gcm-advanced-encryption-standard-in-galoiscounter-mode">AES - GCM (Advanced Encryption Standard in Galois/Counter Mode)</h2>
+<p>ECB mode in the AES scheme uses only one block cypher to take in plaintext and spit out cyphertext. It is very weak.</p>
+<p>Counter mode uses a random initializer to ensure that the encryption scheme is different everytime. You encrypt the counter not the message. We will XOR the actual message with this encrypted counter and get cyphertext 1(c1) to cn. Now this is risky. If an attacker gets hold of the cyphertext, they can change the bits and when the message is drcrypted, it will alter the message content itself. We need to add something like a checksum to ensure that the CT hasnt been tampered with. We could define a tag that will change even if one of the C1-Cn changes (cyphertext). We want to authenticate the cyphertext, obv. We also want to authenticate the length of the message against the tag. aes-gcm first calculates the hash key first.</p>
+<ul>
+<li>To generate this, 128 0s and we encryot that using aes, that gives us H, the hash key</li>
+<li>For each cyphertext, we add it to your existing tag, multiply it to H (We use finite field arithmetic in the Galois field..too complex for me to explain)</li>
+</ul>
+<h2 id="object-oriented-refactoring-securenode">Object-Oriented Refactoring (SecureNODE)</h2>
+<p>To clean up the codebase and make it scalable, all the messy networking plumbing (struct packing/unpacking) and the math (RSA/AES) was moved into a dedicated <code>SecureNODE</code> class.</p>
+<p>The client and server files now just handle the UI and the socket lifecycle. They create a <code>SecureNODE</code> object, pass the socket into it, and just call clean functions like <code>NODE.aes_pack_and_encrypt()</code>. This keeps the state (like the specific keys for that session) isolated inside the object.</p>
+        </div>
+        <div class="post-nav-back">
+          <a class="text-link" href="../blog.html">← back to blog</a>
+        </div>
+      </article>
+    </main>
+    <footer class="container site-footer">
+      <span>© <span id="year"></span> Tanmay Dawande · Based in Pune, Maharashtra</span>
+    </footer>
+    <script src="../js/script.js"></script>
+  </body>
+</html>

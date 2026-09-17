@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Tanmay Dawande - Blog</title>
+    <link>https://tanmaydawande.tech/blog.html</link>
+    <description>Notes, write-ups, and things Tanmay Dawande is figuring out.</description>
+    <lastBuildDate>Thu, 17 Sep 2026 19:55:22 +0000</lastBuildDate>
+    <item>
+      <title>babel</title>
+      <link>https://tanmaydawande.tech/blog/2026-09-18-babel-tcp.html</link>
+      <guid>https://tanmaydawande.tech/blog/2026-09-18-babel-tcp.html</guid>
+      <pubDate>Fri, 18 Sep 2026 12:00:00 +0000</pubDate>
+      <description>A CLI client-server chat with length-prefixed packet framing and hybrid encryption - RSA implemented from raw math, used to bootstrap a 256-bit AES-GCM session.</description>
+    </item>
+  </channel>
+</rss>
