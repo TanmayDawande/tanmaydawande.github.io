@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="{{DESCRIPTION}}" />
+    <meta property="og:title" content="{{TITLE}} - Tanmay Dawande" />
+    <meta property="og:description" content="{{DESCRIPTION}}" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://tanmaydawande.tech/blog/{{SLUG}}.html" />
+    <meta name="twitter:card" content="summary" />
+    <title>{{TITLE}} - Tanmay Dawande</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+    <link rel="stylesheet" href="../css/code.css" />
+    <link rel="alternate" type="application/rss+xml" title="Tanmay Dawande - Blog" href="../feed.xml" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav container" aria-label="Main navigation">
+        <ul class="nav-links">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../projects.html">Projects</a></li>
+          <li><a href="../activity.html">Activity</a></li>
+          <li><a href="../blog.html" aria-current="page">Blog</a></li>
+          <li><a href="../index.html#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main class="container page-main post-page">
+      <article class="section">
+        <a class="text-link" href="../blog.html">← back to blog</a>
+        <div class="post-header">
+          <p class="post-meta">{{DATE_DISPLAY}} · {{READING_TIME}} min read</p>
+          <h1 class="post-title">{{TITLE}}</h1>
+          {{TAGS_HTML}}
+        </div>
+        <div class="prose">
+          {{CONTENT}}
+        </div>
+        <div class="post-nav-back">
+          <a class="text-link" href="../blog.html">← back to blog</a>
+        </div>
+      </article>
+    </main>
+    <footer class="container site-footer">
+      <span>© <span id="year"></span> Tanmay Dawande · Based in Pune, Maharashtra</span>
+    </footer>
+    <script src="../js/script.js"></script>
+  </body>
+</html>
