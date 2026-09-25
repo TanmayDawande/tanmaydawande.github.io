@@ -1,5 +1,6 @@
 const githubUsername = "TanmayDawande";
 const activityEndpoint = `https://api.github.com/users/${githubUsername}/events/public?per_page=100`;
+const cacheKey = "gh-activity-cache-v1";
 
 const escapeHtml = (value) => String(value).replace(/[&<>'"]/g, (character) => ({
   "&": "&amp;",
@@ -42,11 +43,25 @@ function eventItem(event) {
   } else if (event.type === "CreateEvent") {
     type = "CREATE";
     title = `created ${payload.ref_type || "a branch"}`;
+  } else if (event.type === "ReleaseEvent") {
+    type = "RELEASE";
+    title = payload.release?.name || payload.release?.tag_name || "published a release";
+    url = payload.release?.html_url || repoUrl;
+  } else if (event.type === "ForkEvent") {
+    type = "FORK";
+    title = "forked the repository";
+    url = payload.forkee?.html_url || repoUrl;
+  } else if (event.type === "WatchEvent") {
+    type = "STAR";
+    title = "starred the repository";
+  } else if (event.type === "DeleteEvent") {
+    type = "DELETE";
+    title = `deleted ${payload.ref_type || "a branch"}`;
   }
   return { repo, repoUrl, type, title, number, url, date: event.created_at };
 }
 
-function renderActivity(events) {
+function renderActivity(events, statusText) {
   const list = document.querySelector("#activity-list");
   const status = document.querySelector("#activity-status");
   const groups = new Map();
@@ -57,7 +72,7 @@ function renderActivity(events) {
   });
   if (!groups.size) {
     list.innerHTML = '<p class="empty-activity">No public activity found recently.</p>';
-    status.textContent = "no recent public events";
+    status.textContent = statusText || "no recent public events";
     return;
   }
   list.innerHTML = [...groups].map(([repo, group]) => `
@@ -73,20 +88,71 @@ function renderActivity(events) {
       `).join("")}
     </section>
   `).join("");
-  status.textContent = `${events.length} recent public events · live from GitHub`;
+  status.textContent = statusText || `${events.length} recent public events · live from GitHub`;
 }
 
+function readCache() {
+  try {
+    const raw = localStorage.getItem(cacheKey);
+    return raw ? JSON.parse(raw) : null;
+  } catch {
+    return null;
+  }
+}
+
+function writeCache(events) {
+  try {
+    localStorage.setItem(cacheKey, JSON.stringify({ events, fetchedAt: Date.now() }));
+  } catch {
+    // private browsing or quota exceeded — cache is a nice-to-have, fail silently
+  }
+}
+
+let isLoading = false;
+
 async function loadActivity() {
+  if (isLoading) return;
+  isLoading = true;
+
   const list = document.querySelector("#activity-list");
   const status = document.querySelector("#activity-status");
-  list.innerHTML = '<p class="empty-activity">loading GitHub activity...</p>';
+  const refreshButton = document.querySelector("#refresh-activity");
+  if (refreshButton) refreshButton.disabled = true;
+
+  const cache = readCache();
+  if (cache?.events?.length) {
+    renderActivity(cache.events, `showing cached activity from ${formatDate(cache.fetchedAt)} · refreshing…`);
+  } else {
+    list.innerHTML = '<p class="empty-activity">loading GitHub activity...</p>';
+  }
+
   try {
     const response = await fetch(activityEndpoint, { headers: { Accept: "application/vnd.github+json" } });
-    if (!response.ok) throw new Error(`GitHub returned ${response.status}`);
-    renderActivity(await response.json());
-  } catch {
-    status.textContent = "could not fetch GitHub activity";
-    list.innerHTML = '<p class="empty-activity">GitHub is rate-limiting this page or the network is unavailable. Try refresh in a little while.</p>';
+
+    if (!response.ok) {
+      if (response.status === 403 && response.headers.get("x-ratelimit-remaining") === "0") {
+        const resetHeader = response.headers.get("x-ratelimit-reset");
+        const resetTime = resetHeader
+          ? new Intl.DateTimeFormat("en", { hour: "numeric", minute: "2-digit" }).format(new Date(Number(resetHeader) * 1000))
+          : null;
+        throw new Error(resetTime ? `rate-limited until ${resetTime}` : "rate-limited");
+      }
+      throw new Error(`GitHub returned ${response.status}`);
+    }
+
+    const events = await response.json();
+    writeCache(events);
+    renderActivity(events);
+  } catch (error) {
+    if (cache?.events?.length) {
+      renderActivity(cache.events, `showing cached activity from ${formatDate(cache.fetchedAt)} · live refresh failed`);
+    } else {
+      status.textContent = `could not fetch GitHub activity${error.message ? ` (${error.message})` : ""}`;
+      list.innerHTML = '<p class="empty-activity">GitHub is rate-limiting this page or the network is unavailable. Try refresh in a little while.</p>';
+    }
+  } finally {
+    isLoading = false;
+    if (refreshButton) refreshButton.disabled = false;
   }
 }
 
