@@ -29,7 +29,7 @@ ROOT = Path(__file__).resolve().parent.parent
 POSTS_DIR = ROOT / "posts"
 BLOG_DIR = ROOT / "blog"
 TEMPLATES_DIR = ROOT / "templates"
-SITE_URL = "https://tanmaydawande.tech"
+SITE_URL = "https://tanmaydawande.github.io"
 SITE_NAME = "Tanmay Dawande"
 
 MD_EXTENSIONS = ["fenced_code", "codehilite", "tables", "sane_lists", "smarty", "toc"]

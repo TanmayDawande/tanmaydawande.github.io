@@ -1,7 +1,7 @@
 # Writing a post
 
 1. Create `posts/YYYY-MM-DD-some-slug.md`. The filename becomes the URL:
-   `some-slug.md` → `tanmaydawande.tech/blog/some-slug.html`.
+   `some-slug.md` → `tanmaydawande.github.io/blog/some-slug.html`.
 2. Front matter at the top, then Markdown:
 
    ```
