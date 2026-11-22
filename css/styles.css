@@ -5,7 +5,7 @@
 
   /* Flower Settings */
   --flower-opacity: 0.42;
-  --flower-height: 115vh;
+  --flower-height: 118vh;
 
   /* Pure Grayscale Palette */
   --bg: #090909;
@@ -94,17 +94,16 @@ a:focus-visible {
 
 .flower__img {
   position: absolute;
-  top: 50%;
-  right: -3vw;
-  height: var(--flower-height, 115vh);
+  top: 62%;
+  right: 0vw;
+  height: var(--flower-height, 118vh);
   width: auto;
   max-width: none;
   translate: 0 -50%;
   opacity: var(--flower-opacity, 0.42);
   mix-blend-mode: screen;
-  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 68%, transparent 100%);
-  mask-image: linear-gradient(to bottom, black 0%, black 68%, transparent 100%);
-  animation: flower-float 16s ease-in-out infinite alternate;
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 98%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 0%, black 98%, transparent 100%);
 }
 
 .flower::after {
@@ -112,16 +111,7 @@ a:focus-visible {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: radial-gradient(circle at calc(100% - 22vw) 50%, transparent 20%, transparent 45%, #0a0a0a 85%);
-}
-
-@keyframes flower-float {
-  from {
-    transform: translateY(-1.2%) rotate(-0.6deg);
-  }
-  to {
-    transform: translateY(1.2%) rotate(0.6deg);
-  }
+  background: radial-gradient(circle at calc(100% - 22vw) 45%, transparent 35%, transparent 65%, rgba(10, 10, 10, 0.9) 95%);
 }
 
 .page-wrapper {
@@ -734,7 +724,7 @@ main,
 /* Responsive */
 @media (max-width: 760px) {
   :root {
-    --flower-height: 82vh;
+    --flower-height: 105vh;
     --flower-opacity: 0.3;
   }
 
@@ -742,10 +732,11 @@ main,
     right: auto;
     left: 50%;
     translate: -50% -50%;
+    top: 68%;
   }
 
   .flower::after {
-    background: radial-gradient(circle at 50% 50%, transparent 20%, #0a0a0a 80%);
+    background: radial-gradient(circle at 50% 50%, transparent 25%, transparent 60%, #0a0a0a 90%);
   }
 }
 
