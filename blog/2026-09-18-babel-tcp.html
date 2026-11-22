@@ -4,12 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="A CLI client-server chat with length-prefixed packet framing and hybrid encryption - RSA implemented from raw math, used to bootstrap a 256-bit AES-GCM session." />
-    <meta property="og:title" content="babel - Tanmay Dawande" />
+    <meta property="og:title" content="babel — Tanmay Dawande" />
     <meta property="og:description" content="A CLI client-server chat with length-prefixed packet framing and hybrid encryption - RSA implemented from raw math, used to bootstrap a 256-bit AES-GCM session." />
     <meta property="og:type" content="article" />
     <meta property="og:url" content="https://tanmaydawande.tech/blog/2026-09-18-babel-tcp.html" />
     <meta name="twitter:card" content="summary" />
-    <title>babel - Tanmay Dawande</title>
+    <title>babel — Tanmay Dawande</title>
+    <link rel="icon" href="data:," />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="../css/styles.css" />
     <link rel="stylesheet" href="../css/code.css" />
     <link rel="alternate" type="application/rss+xml" title="Tanmay Dawande - Blog" href="../feed.xml" />
@@ -18,21 +21,24 @@
     <header class="site-header">
       <nav class="nav container" aria-label="Main navigation">
         <ul class="nav-links">
-          <li><a href="../index.html">Home</a></li>
-          <li><a href="../projects.html">Projects</a></li>
-          <li><a href="../blog.html" aria-current="page">Blog</a></li>
-          <li><a href="../index.html#contact">Contact</a></li>
+          <li><a href="../index.html">home</a></li>
+          <li><a href="../projects.html">projects</a></li>
+          <li><a href="../blog.html" aria-current="page">blog</a></li>
+          <li><a href="../index.html#contact">contact</a></li>
         </ul>
       </nav>
     </header>
-    <main class="container page-main post-page">
-      <article class="section">
-        <a class="text-link" href="../blog.html">← back to blog</a>
-        <div class="post-header">
-          <p class="post-meta">18 Sep 2026 · 10 min read</p>
+
+    <main class="container page-main">
+      <article>
+        <a class="back-link" href="../blog.html">← back to writing</a>
+
+        <header class="post-header">
+          <p class="post-date">18 Sep 2026 · 10 min read</p>
           <h1 class="post-title">babel</h1>
           <div class="post-tags"><span class="post-tag">python</span><span class="post-tag">cryptography</span><span class="post-tag">rsa</span><span class="post-tag">aes-gcm</span><span class="post-tag">oaep</span></div>
-        </div>
+        </header>
+
         <div class="prose">
           <p>I learnt in the computer networks class about sockets in python for the first time. I liked the concept and wanted to explore further on how these things really work behind the scenes. Some interest in cryptography led me to take this on.</p>
 <p>First off, I built the basic to-and-fro chat interface with a <strong><code>client.py</code></strong> and a <strong><code>server.py</code></strong>. No encryption, no nothing fancy. Both the client and server connected to the same port and ip and the connection was established, just like that. The client sent a message, the server received the message and replied to it accordingly.</p>
@@ -140,14 +146,18 @@ EM = 0x00 || maskedSeed || maskedDB
 <h2 id="where-babel-stands-now">where babel stands now</h2>
 <p>babel works, and it is not safe yet. the biggest hole is that the two sides never prove who they are (authentication that is). the public keys cross the wire in the clear, so someone sitting in the middle can hand each side their own key, read everything, and re-encrypt it onward, and my AES-GCM would never notice. the fix is a signed handshake. each side signs the handshake with a long-term key, and the other side checks that signature against a fingerprint it already trusts (the way SSH remembers a server). that would finally give the client’s key pair, which gets exchanged and then just sits there, a job. next comes replay: both directions share one AES key and messages carry no counter, so a captured message can be sent again or bounced back at its sender. a sequence number inside every message, plus a separate key for each direction, closes that. then there is the shape of the key exchange itself. the AES key rides under a static RSA key, so if the server’s private key ever leaks, every recorded session falls open. swapping it for an ephemeral Diffie-Hellman exchange (ECDH) means each session gets a key that is thrown away afterwards, which is how modern TLS does it. smaller problems exist too. i need to make recv read until a frame is complete, make tampered packets close the session cleanly instead of crashing it, etc etc. the most noticeable problem used to be the ping-pong chat, where i couldn’t send multiple messages like in whatsapp or any other chatting app. that one is fixed now: babel is full duplex, so both sides can send whenever they want. further improvements on the way!</p>
         </div>
-        <div class="post-nav-back">
-          <a class="text-link" href="../blog.html">← back to blog</a>
+
+        <div style="margin-top: 3.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border);">
+          <a class="back-link" href="../blog.html" style="margin-bottom: 0;">← back to writing</a>
         </div>
       </article>
     </main>
+
     <footer class="container site-footer">
-      <span>© <span id="year"></span> Tanmay Dawande · Based in Pune, Maharashtra</span>
+      <span>© <span id="year"></span> Tanmay Dawande</span>
+      <span>Pune, India</span>
     </footer>
+
     <script src="../js/script.js"></script>
   </body>
 </html>

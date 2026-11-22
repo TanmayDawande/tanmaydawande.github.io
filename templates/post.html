@@ -4,12 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="{{DESCRIPTION}}" />
-    <meta property="og:title" content="{{TITLE}} - Tanmay Dawande" />
+    <meta property="og:title" content="{{TITLE}} — Tanmay Dawande" />
     <meta property="og:description" content="{{DESCRIPTION}}" />
     <meta property="og:type" content="article" />
     <meta property="og:url" content="https://tanmaydawande.tech/blog/{{SLUG}}.html" />
     <meta name="twitter:card" content="summary" />
-    <title>{{TITLE}} - Tanmay Dawande</title>
+    <title>{{TITLE}} — Tanmay Dawande</title>
+    <link rel="icon" href="data:," />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="../css/styles.css" />
     <link rel="stylesheet" href="../css/code.css" />
     <link rel="alternate" type="application/rss+xml" title="Tanmay Dawande - Blog" href="../feed.xml" />
@@ -18,32 +21,39 @@
     <header class="site-header">
       <nav class="nav container" aria-label="Main navigation">
         <ul class="nav-links">
-          <li><a href="../index.html">Home</a></li>
-          <li><a href="../projects.html">Projects</a></li>
-          <li><a href="../blog.html" aria-current="page">Blog</a></li>
-          <li><a href="../index.html#contact">Contact</a></li>
+          <li><a href="../index.html">home</a></li>
+          <li><a href="../projects.html">projects</a></li>
+          <li><a href="../blog.html" aria-current="page">blog</a></li>
+          <li><a href="../index.html#contact">contact</a></li>
         </ul>
       </nav>
     </header>
-    <main class="container page-main post-page">
-      <article class="section">
-        <a class="text-link" href="../blog.html">← back to blog</a>
-        <div class="post-header">
-          <p class="post-meta">{{DATE_DISPLAY}} · {{READING_TIME}} min read</p>
+
+    <main class="container page-main">
+      <article>
+        <a class="back-link" href="../blog.html">← back to writing</a>
+
+        <header class="post-header">
+          <p class="post-date">{{DATE_DISPLAY}} · {{READING_TIME}} min read</p>
           <h1 class="post-title">{{TITLE}}</h1>
           {{TAGS_HTML}}
-        </div>
+        </header>
+
         <div class="prose">
           {{CONTENT}}
         </div>
-        <div class="post-nav-back">
-          <a class="text-link" href="../blog.html">← back to blog</a>
+
+        <div style="margin-top: 3.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border);">
+          <a class="back-link" href="../blog.html" style="margin-bottom: 0;">← back to writing</a>
         </div>
       </article>
     </main>
+
     <footer class="container site-footer">
-      <span>© <span id="year"></span> Tanmay Dawande · Based in Pune, Maharashtra</span>
+      <span>© <span id="year"></span> Tanmay Dawande</span>
+      <span>Pune, India</span>
     </footer>
+
     <script src="../js/script.js"></script>
   </body>
 </html>
